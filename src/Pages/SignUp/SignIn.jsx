@@ -14,6 +14,7 @@ function SignIn() {
       setPasswordError("");
     }
   };
+
   return (
     <div className="main flex justify-center items-center h-screen">
       <div className="left w-1/2 bg-[#4BCBEB] h-full px-[130px] pt-[100px] bg-[  rgba(255, 255, 255, 0.06)]">
@@ -25,7 +26,7 @@ function SignIn() {
         </div>
         <img src={bro} />
       </div>
-      <div className="right w-1/2  h-full pt-[100px] ">
+      <div className="right w-1/2  h-full pt-[100px]  ">
         <div className="flex flex-col mx-[100px]">
           <h5 className="mb-3 text-3xl font-bold">Sign In to Your Account</h5>
           <p className="text-[#64748B]">

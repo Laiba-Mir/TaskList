@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Analytics from "/images/Analytics.png";
+import Group from "/images/Group 154.png";
 import Task from "/images/Task.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,7 @@ import {
   faGreaterThan,
 } from "@fortawesome/free-solid-svg-icons";
 
-function Dashboard() {
+function Notifications() {
   return (
     <div className="grid grid-flow-col w-full h-full">
       {/* This is sidebar */}
@@ -29,9 +29,6 @@ function Dashboard() {
           <Link to="/dashboard">Dashboard</Link>
         </div>
         <div className="m-4 text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
-          <Link to="/notifications">Users</Link>
-        </div>
-        <div className="m-4 text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
           <Link to="/tasks">Tasks</Link>
         </div>
         <div className="m-4 text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
@@ -45,28 +42,28 @@ function Dashboard() {
       <div className="grid grid-flow-row">
         {/* this is Dashboard */}
         <div className="bg-[#FFFFFF] w-[1155px] h-[88px] flex">
-          <div className=" text-3xl p-6 font-bold right">Dashboard</div>
+          <div className=" text-3xl p-6 font-bold right">Notifications</div>
           <div className="left p-6 pl-[700px] size-max">
             <FontAwesomeIcon icon={faBell} />
           </div>
           <div className="p-6 pl-[5px] ">
             <FontAwesomeIcon icon={faUser} />
           </div>
-          <div className="p-5 pl-[3px] ">
+          <div className="pt-4 pl-[2px] font-bold text-sm ">
             <Link to="/usmanshahid">Usman Shahid</Link>
-            <p>Status 200</p>
+            <p className="font-normal">Status 200</p>
           </div>
-          <div className="p-6 pl-[2px] ">
+          <div className="p-6 pl-[11px]  ">
             <FontAwesomeIcon icon={faGreaterThan} />
           </div>
         </div>
 
         {/* This is bottom part */}
-        <div className="size-11/12">
-          <img src={Analytics} alt="pic" className="size-fit" />
+        <div className="size-11/12 pl-[70px] pt-[50px]">
+          <img src={Group} alt="pic" className="size-fit" />
         </div>
       </div>
     </div>
   );
 }
-export default Dashboard;
+export default Notifications;
