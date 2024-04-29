@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 // import bro from "../../images/bro.png";
 // import vector from "../../images/Vector.png";
-// import cover from "../../images/Cover.png";
+import cover from "/images/Cover.png";
+
 function Resetpass() {
   //   const [password, setPassword] = useState("");
   //   const [passwordError, setPasswordError] = useState("");
@@ -82,7 +83,7 @@ function Resetpass() {
             <br></br>
             <a
               className="text-[#4BCBEB] px-28 hover:underline-offset-4 text-center font-bold"
-              href="#"
+              href="/signin"
             >
               Back to signIn
             </a>
