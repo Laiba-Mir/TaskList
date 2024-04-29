@@ -7,6 +7,8 @@ import SignIn from "./Pages/SignUp/SignIn";
 import Dashboard from "./Pages/SignUp/Dashboard";
 import Notifications from "./Pages/SignUp/Notifications";
 import Tasks from "./Pages/SignUp/Tasks";
+import User from "./Pages/SignUp/User";
+import Resetpass from "./Pages/SignUp/ResetPass";
 
 // import SideBar from "./components/sidebar";
 
@@ -22,6 +24,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/tasks" element={<Tasks />} />
+          <Route path="/users" element={<User />} />
+          <Route path="/resetpass" element={<Resetpass />} />
           {/* <Route path="/sidebar" element={<SideBar />} /> */}
         </Routes>
       </BrowserRouter>
