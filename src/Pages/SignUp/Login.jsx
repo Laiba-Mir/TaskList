@@ -7,62 +7,84 @@ import { useNavigate } from "react-router-dom";
 import SignupUer from "../../svg-components/SignupUer";
 import Email from "../../svg-components/Email";
 import Password from "../../svg-components/Password";
+import { useDispatch, useSelector } from 'react-redux';
+import { LOGIN_SUCCESS } from '../../redux/actions/authActions';
+
 
 function Login() {
 	const [name, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
-
 	const navigate = useNavigate();
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		try {
-			const response = await axios.post(
-				"http://localhost:3000/api/users/signup",
-				{ name, email, password }
-			);
-			// console.log(response.data); // Assuming your API returns some data upon successful signup
-			// Handle successful signup, e.g., redirect to another page
-      if (response.data) {
-        localStorage.setItem('fetchedData', JSON.stringify(response.data));
-        console.log(response.data)
-      }
+  const dispatch = useDispatch();
 
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post(
+            "http://localhost:3000/api/users/signup",
+            { name, email, password }
+        );
+        if (response.data) {
+            // Dispatch login action with user data
+            dispatch(LOGIN_SUCCESS(response.data));
+            navigate("/signin");
+        }
+    } catch (err) {
+        setError(err.response.data.message); // Set error message if login fails
+    }
+};
 
-			navigate("/signin");
-		} catch (err) {
-			setError(err.response.data.message); // Assuming your API returns error messages
-		}
-	};
 
-	//   const [name, setName] = useState("");
-	//   const [email, setEmail] = useState("");
-	//   const [password, setPassword] = useState("");
-	//  const navigate = useNavigate()
-	//    const onSubmit = (e) => {
-	//      e.preventDefault();
-	//      axios.post('http://localhost:3000/api/users/register',{name,email,password})
-	//        .then(result => {
-	//          console.log(result)
-	//          navigate('/login')
-	//        })
-	//        .catch(err => console.log(err));
-	//    };
 
-	// const dispatch = useDispatch();
-	// const signUpLoading = useSelector((state) => state.user.signUpLoading);
-	// const signUpError = useSelector((state) => state.user.signUpError);
 
-	// const [name, setName] = useState("");
-	// const [email, setEmail] = useState("");
-	// const [password, setPassword] = useState("");
 
-	// const handleSignUp = () => {
-	//   dispatch(signUp(name, email, password));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // const handleSubmit = async (e) => {
+	// 	e.preventDefault();
+	// 	try {
+	// 		const response = await axios.post(
+	// 			"http://localhost:3000/api/users/signup",
+	// 			{ name, email, password }
+	// 		);
+	// 		// console.log(response.data); // Assuming your API returns some data upon successful signup
+	// 		// Handle successful signup, e.g., redirect to another page
+  //     if (response.data) {
+  //       localStorage.setItem('fetchedData', JSON.stringify(response.data));
+  //       console.log(response.data)
+  //     }
+
+
+
+	// 		navigate("/signin");
+	// 	} catch (err) {
+	// 		setError(err.response.data.message); // Assuming your API returns error messages
+	// 	}
 	// };
+
+
+	
 
 	// Rest of your component code remains the same
 
@@ -114,7 +136,13 @@ function Login() {
 			</div>
 			<div className="right w-1/2  h-full pt-[100px] ">
 				<div className="flex flex-col  mx-[100px]">
-					<form onSubmit={handleSubmit}>
+					
+          
+          
+          
+          <form onSubmit={handleSubmit}>
+
+
 						<h5 className=" mb-10 font-bold text-[24px] text-[#0F172A] font-Poppins">
 							Sign Up for an Account
 						</h5>
@@ -173,6 +201,7 @@ function Login() {
 								/>
 							</div>
 						</div>
+            {/* {error && <div className="text-red-500 mb-4">{error}} */}
 						<div className="text-red-500 text-xs mt-1">
 							{handlePasswordChange}
 						</div>
@@ -222,6 +251,7 @@ Poppins text-[12px]">
                     
 							</span>
 						</div>
+              {/* {error && <div className="text-red-500">{error}</div>} */}
 					</form>
 				</div>
 			</div>
