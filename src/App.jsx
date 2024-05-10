@@ -10,10 +10,15 @@ import Tasks from "./Pages/SignUp/Tasks";
 import User from "./Pages/SignUp/User";
 import Resetpass from "./Pages/SignUp/ResetPass";
 
+
+
 // import SideBar from "./components/sidebar";
 
 function App() {
   // const [count, setCount] = useState(0);
+
+ 
+  
 
   return (
     <>
@@ -34,3 +39,6 @@ function App() {
 }
 
 export default App;
+
+
+
