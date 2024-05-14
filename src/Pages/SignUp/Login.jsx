@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 import SignupUer from "../../svg-components/SignupUer";
 import Email from "../../svg-components/Email";
 import Password from "../../svg-components/Password";
-import { useDispatch, useSelector } from 'react-redux';
-import { LOGIN_SUCCESS } from '../../redux/actions/authActions';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { loginSuccess } from '../../redux/actions/authActions';
+import { store } from "../../GlobalStateManagement/globalStore";
 
 
 function Login() {
@@ -17,7 +18,8 @@ function Login() {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  
 
 
   const handleSubmit = async (e) => {
@@ -29,8 +31,10 @@ function Login() {
         );
         if (response.data) {
             // Dispatch login action with user data
-            dispatch(LOGIN_SUCCESS(response.data));
-            navigate("/signin");
+            store.data = response.data
+            navigate("/dashboard");
+            // dispatch(loginSuccess(response.data));
+            // navigate("/signin");
         }
     } catch (err) {
         setError(err.response.data.message); // Set error message if login fails

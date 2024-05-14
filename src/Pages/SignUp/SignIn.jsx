@@ -3,6 +3,8 @@ import bro from "/images/new.png";
 import vector from "/images/Vector.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Email from "../../svg-components/Email";
+import Password from "../../svg-components/Password";
 
 function SignIn() {
 	const [email, setEmail] = useState("");
@@ -45,7 +47,7 @@ function SignIn() {
 					<p className="text-[#64748B]">
 						Welcome Back! Please Enter Your Details!
 					</p>
-					
+
 					{/* <div className="relative">
 						<div className="flex items-center  border border-solid border-gray-300 rounded w-4/5">
 							<div className=" mt-1 ml-2">
@@ -62,15 +64,32 @@ function SignIn() {
 						</div>
 					</div> */}
 
-					<input
+					<div className="relative pb-3">
+						<div className="flex items-center  border border-solid border-gray-300 rounded-lg w-4/5">
+							<div className=" mt-1 ml-2">
+								<Email />
+							</div>
+							<input
+								id="email"
+								className="text-sm flex-1 text-[14px] font-
+                  Poppins px-4 py-4 border-none outline-none"
+								type="email"
+								placeholder="Email"
+								onChange={(e) => setEmail(e.target.value)}
+								required
+							/>
+						</div>
+					</div>
+
+					{/* <input
 						id="email"
 						className="text-sm w-4/5 px-4 py-4 border border-solid border-gray-300 rounded mt-4"
 						type="email"
 						placeholder="Email"
 						required
 						onChange={(e) => setEmail(e.target.value)}
-					/>
-					<input
+					/> */}
+					{/* <input
 						id="password"
 						className="text-sm w-4/5 px-4 py-4 border border-solid border-gray-300 rounded my-4"
 						type="password"
@@ -78,7 +97,25 @@ function SignIn() {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required
-					/>
+					/> */}
+
+					<div className="relative pb-4">
+						<div className="flex items-center  border border-solid border-gray-300 rounded-lg w-4/5">
+							<div className=" mt-1 ml-2">
+								<Password />
+							</div>
+							<input
+								id="password"
+								className="text-sm flex-1 text-[14px] font-
+                  Poppins px-4 py-4 border-none outline-none"
+								type="password"
+								placeholder="Password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								required
+							/>
+						</div>
+					</div>
 
 					{error && <div className="text-red-500 text-xs mt-1">{error}</div>}
 					<div className="mt-4 flex justify-between font-semibold text-sm mr-40">

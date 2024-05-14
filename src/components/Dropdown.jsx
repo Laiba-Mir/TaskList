@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import Delicon from "../svg-components/Delicon";
+
+import Eye1 from "../svg-components/Eye1";
+import Editicon from "../svg-components/Editicon";
 // import axios from "axios";
 // import PropTypes from "prop-types";
 // import Modal from "../components/Modal";
 import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
 import EditModal2 from "./EditModal2";
 
-
-const Dropdown = () => {
+const Dropdown = ({
+	 id,
+	 fetchTask,
+ }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [showModal2, setShowModal2] = useState(false);
@@ -16,46 +22,18 @@ const Dropdown = () => {
 		setIsOpen(!isOpen);
 	};
 
-
-	
-    // const handleDelete = () => {
-    //     // Assuming taskId is provided by the parent component
-    //     onDelete();
-    // };
-
-
-	// function deleteTask(taskId) {
-	// 	Setloading(true);
-	// 	axios
-	// 	  .delete(`http://localhost:3000/api/tasks/${taskId}`)
-	// 	  .then((response) => {
-	// 		// If deletion is successful, fetch updated tasks
-	// 		fetchTasks();
-	// 		console.log("Task deleted successfully:", response);
-	// 	  })
-	// 	  .catch((error) => {
-	// 		console.error("Error deleting task:", error);
-	// 	  })
-	// 	  .finally(() => {
-	// 		Setloading(false);
-	// 	  });
-	//   }
-
-
 	function handleModalSubmit(data) {
 		axios
-		  .delete(`http://localhost:3000/api/tasks/${data.data_id}`)
-		  .then((response) => {
-			// If deletion is successful, handle any necessary UI updates or notifications
-			console.log("Task deleted successfully:", response);
-			setShowModal(false); // Close the modal after successful deletion
-		  })
-		  .catch((error) => {
-			console.error("Error deleting task:", error);
-		  });
-	  }
-	  
-			
+			.delete(`http://localhost:3000/api/tasks/${data.data_id}`)
+			.then((response) => {
+				// If deletion is successful, handle any necessary UI updates or notifications
+				console.log("Task deleted successfully:", response);
+				setShowModal(false); // Close the modal after successful deletion
+			})
+			.catch((error) => {
+				console.error("Error deleting task:", error);
+			});
+	}
 
 	return (
 		<div className="relative inline-block text-left">
@@ -82,33 +60,40 @@ const Dropdown = () => {
 			{isOpen && (
 				<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
 					<div className="py-1">
-						
 						<a
 							href="#"
-							onClick={() => setShowModal(true)}
-							className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-							>
+							onClick={() => {
+								setShowModal(true);
+							}}
+							className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
+							<Delicon />
 							Delete
 						</a>
 
 						<a
 							href="#"
-							className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+							className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
+							<Eye1 />
 							View
 						</a>
 						<a
 							href="#"
 							onClick={() => setShowModal2(true)}
-							className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+							className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
+							<Editicon />
 							Edit
 						</a>
 					</div>
 				</div>
 			)}
-			{showModal && <DeleteConfirmationPopup onSubmit={handleModalSubmit} />}
+			{showModal && (
+				<DeleteConfirmationPopup
+					onSubmit={handleModalSubmit}
+					id={id}
+					fetchTask={fetchTask}
+				/>
+			)}
 			{showModal2 && <EditModal2 onSubmit={handleModalSubmit} />}
-
-			
 		</div>
 	);
 };

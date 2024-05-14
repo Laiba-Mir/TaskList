@@ -4,15 +4,15 @@ import Task from "/images/Task.png";
 import imageOne from "/images/Task.png";
 
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faBell,
-	faUser,
-	faGreaterThan,
-} from "@fortawesome/free-solid-svg-icons";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import TaskForm from "./TaskForm";
-import EditForm from "../../components/EditForm";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+// 	faBell,
+// 	faUser,
+// 	faGreaterThan,
+// } from "@fortawesome/free-solid-svg-icons";
+// import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+// import TaskForm from "./TaskForm";
+// import EditForm from "../../components/EditForm";
 import axios from "axios";
 
 // import Dashboardicon from "../../svg-components/dashboardicon";
@@ -28,6 +28,7 @@ import Modal from "../../components/Modal";
 import Dashboard2 from "../../svg-components/Dashboard2";
 import Task2 from "../../svg-components/Task2";
 import Dropdown from "../../components/Dropdown";
+// import EditModal2 from "../../components/EditModal2";
 
 function Tasks() {
 	// =======================================================================================
@@ -58,7 +59,6 @@ function Tasks() {
 	function fetchTasks() {
 		Setloading(true);
 		axios
-
 			.get("http://localhost:3000/api/tasks")
 			.then((response) => {
 				const filteredTasks = response.data.data;
@@ -72,6 +72,8 @@ function Tasks() {
 				console.error("Error fetching tasks:", error);
 			});
 	}
+
+	
 
 	function handleModalSubmit(data) {
 		axios
@@ -141,41 +143,43 @@ function Tasks() {
 	// ===================================================================================
 
 	return (
-		<div className=" w-full h-screen grid grid-rows-3 grid-flow-col ">
+		<div className=" w-full h-screen grid grid-rows-3 grid-flow-col absolute">
 			{/*================================== This is sidebar============================= */}
 
 			<div class="row-span-3 h-screen bg-[#FFFFFF] w-[320px] shadow-xl  hidden md:block">
-				<section className="flex items-center m-3 p-3 border border-gray-300 shadow-lg rounded">
+				<section className="flex items-center m-3 p-3 border border-gray-100 shadow-lg rounded">
 					<img src={Task} alt="Logo" className="mr-2 px-2" />
 					<span>
-						<h2 className="text-2xl font-medium text-[#4BCBEB]">
+						<h2 className="text-[21px] font-Roboto font-medium text-[#4BCBEB]">
 							Task Manager List
 						</h2>
 					</span>
 				</section>
 				<div class="border-b border-[#F6F8FA] w-[10px]"></div>
-				<h1 className="m-5 text-lg pl-6 pt-5 font-bold ">Menu</h1>
+				<h1 className="m-5 text-[16px] pl-6 pt-5 font-bold font-Poppins ">
+					Menu
+				</h1>
 				<div className="m-4 flex items-center text-lg pl-6 p-3  ">
 					<Dashboard2 />
-					<div className="pl-4">
+					<div className="pl-4 text-[14px] font-Poppins text-[#64748B]">
 						<Link to="/dashboard">Dashboard</Link>
 					</div>
 				</div>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
 					<Usericon />
-					<div className="pl-4">
+					<div className="pl-4 text-[14px] font-Poppins text-[#64748B]">
 						<Link to="/users">Users</Link>
 					</div>
 				</div>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 border-2 font-bold text-[#4BCBEB] shadow-md rounded-xl border-[#F6F8FA] ">
 					<Task2 />
-					<div className="pl-4">
+					<div className="pl-4 text-[#4BCBEB] text-[14px] font-Poppins">
 						<Link to="/tasks">Tasks</Link>
 					</div>
 				</div>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
 					<Setting />
-					<div className="pl-4">
+					<div className="pl-4 text-[14px] font-Poppins text-[#64748B]">
 						<Link to="/settings">Settings</Link>
 					</div>
 				</div>
@@ -186,22 +190,27 @@ function Tasks() {
 			<div className="col-span-2">
 				{/* Dashboard ===================================================*/}
 				<div className="bg-[#FFFFFF] w-[1180px]  flex">
-					<div className="text-3xl p-6 font-bold right">Tasks</div>
+					<div className="text-[32px] font-Poppins p-6 font-bold right">
+						Tasks
+					</div>
 					<div className="left p-6 pl-[700px] size-max">
-					<Bell/>
+						<Bell />
 					</div>
 					<div className="right p-6 pl-[5px] ">
-					<Pic/>
+						<Pic />
 					</div>
-					<div className="p-5 pl-[3px] ">
-						<Link to="/usmanshahid">Usman Shahid</Link>
-						<p>Status 200</p>
+					<div className="p-5 pl-[3px] text-[#0F172A] ">
+						<Link
+							to="/usmanshahid"
+							className=" font-bold text-[14px] font-Poppins">
+							Usman Shahid
+						</Link>
+						<p className="text-[#64748B]">Status 200</p>
 					</div>
 					<div className="p-6 pl-[2px] ">
-					<Arrow/>
+						<Arrow />
 					</div>
 				</div>
-
 
 				{/*============================================================= This is bottom part */}
 
@@ -270,61 +279,13 @@ function Tasks() {
 
 								<div className="flex">
 									<p className="text-sm  pb-3 font-bold px-3">Title:</p>
-                  <div>
-
-                  <Dropdown/>
-                  </div>
+									<div>
+										<Dropdown id={item._id}  fetchTasks={fetchTasks} />
+									</div>
 
 									{/* =========================================== */}
 
-									{/* <span
-										className="text-[#4BCBEB] hover:bg-gray-50 cursor-pointer absolute top-2 right-2"
-										onClick={() => toggleOptions(item.id)}>
-										<FontAwesomeIcon icon={faEllipsisV} />
-										{showOptions[item.id] && selectedTaskId === item.id && (
-											<div
-												className="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
-												role="menu"
-												aria-orientation="vertical"
-												aria-labelledby="options-menu">
-												<div className="py-1" role="none">
-													<button
-														className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-right"
-														role="menuitem"
-														onClick={() => handleAddClick(item.id)}>
-														Add
-													</button>
-													<button
-														className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-right"
-														role="menuitem"
-														onClick={() => handleDeleteClick(item.id)}>
-														Delete
-													</button>
-													<button
-														className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-right"
-														role="menuitem"
-														onClick={() => handleEditClick(item.id)}>
-														Edit
-													</button>
-												</div>
-											</div>
-										)}
-									</span> */}
-									{/* =================================================== */}
-
-									{/* <svg
-                  className="ml-60"
-                  width="25"
-                  height="25"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.75 12C9.75 13.2405 10.7595 14.25 12 14.25C13.2405 14.25 14.25 13.2405 14.25 12C14.25 10.7595 13.2405 9.75 12 9.75C10.7595 9.75 9.75 10.7595 9.75 12ZM9.75 19.5C9.75 20.7405 10.7595 21.75 12 21.75C13.2405 21.75 14.25 20.7405 14.25 19.5C14.25 18.2595 13.2405 17.25 12 17.25C10.7595 17.25 9.75 18.2595 9.75 19.5ZM9.75 4.5C9.75 5.7405 10.7595 6.75 12 6.75C13.2405 6.75 14.25 5.7405 14.25 4.5C14.25 3.2595 13.2405 2.25 12 2.25C10.7595 2.25 9.75 3.2595 9.75 4.5Z"
-                    fill="#4BCBEB"
-                  />
-                </svg> */}
+									
 								</div>
 								<p className="px-3 pb-3">{item.title}</p>
 								<div className="text-sm font-bold mt-2 px-3">Description:</div>

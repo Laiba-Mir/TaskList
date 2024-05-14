@@ -7,9 +7,6 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-
-
-
 import Dashboardicon from "../../svg-components/dashboardicon";
 import Usericon from "../../svg-components/usericon";
 import Taskicon from "../../svg-components/Taskicon";
@@ -17,13 +14,16 @@ import Setting from "../../svg-components/Setting";
 import Bell from "../../svg-components/Bell";
 import Pic from "../../svg-components/Pic";
 import Arrow from "../../svg-components/Arrow";
+import { snapshot, useSnapshot } from "valtio";
+import { store } from "../../GlobalStateManagement/globalStore";
 
 
 
 
 function Dashboard() {
 
-
+	const snapshot =  useSnapshot(store)
+	
 	const [date, setDate] = useState(new Date());
 
 	const onChange = (newDate) => {
@@ -62,38 +62,38 @@ function Dashboard() {
 
 	return (
 		
-		<div className=" w-full h-screen grid grid-rows-3 grid-flow-col bg-slate-100">
+		<div className=" w-full h-screen grid grid-rows-3 grid-flow-col bg-slate-100 absolute">
 			{/* ==============================================This is sidebar ==================================== */}
 			
 			
 		
 
 			<div class="row-span-3 h-screen bg-[#FFFFFF] w-[320px] shadow-xl ">
-				<section className="flex items-center m-3 p-3 border border-gray-300 shadow-lg rounded">
+				<section className="flex items-center m-3 p-3 border border-gray-100 shadow-lg rounded">
 					<img src={Task} alt="Logo" className="mr-2 px-2" />
 					<span>
-						<h2 className="text-2xl font-medium text-[#4BCBEB]">
+						<h2 className="text-[21px] font-Roboto font-medium text-[#4BCBEB]">
 							Task Manager List
 						</h2>
 					</span>
 				</section>
 				<div class="border-b border-[#F6F8FA] w-[10px]"></div>
-				<h1 className="m-5 text-lg pl-6 pt-5 font-bold ">Menu</h1>
+				<h1 className="m-5 text-[16px] pl-6 pt-5 font-bold font-Poppins ">Menu</h1>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 font-bold text-[#4BCBEB] shadow-md rounded-xl ">
 					<Dashboardicon/>
-					<div className="pl-4"><Link to="/dashboard">Dashboard</Link></div>
+					<div className="pl-4 text-[#4BCBEB] text-[14px] font-Poppins"><Link to="/dashboard">Dashboard</Link></div>
 				</div>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
 					<Usericon/>
-					<div className="pl-4"><Link to="/users">Users</Link></div>
+					<div className="pl-4 text-[14px] font-Poppins text-[#64748B]"><Link to="/users">Users</Link></div>
 				</div>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 border-2  border-[#F6F8FA] ">
 					<Taskicon/>
-					<div className="pl-4"><Link to="/tasks">Tasks</Link></div>
+					<div className="pl-4 text-[14px] font-Poppins text-[#64748B]"><Link to="/tasks">Tasks</Link></div>
 				</div>
 				<div className="m-4 flex items-center text-lg pl-6 p-3 border-2  border-[#F6F8FA]">
 					<Setting/>
-					<div className="pl-4"><Link to="/settings">Settings</Link></div>
+					<div className="pl-4 text-[14px] font-Poppins text-[#64748B]"><Link to="/settings">Settings</Link></div>
 				</div>
 
 				
@@ -104,16 +104,16 @@ function Dashboard() {
 				<div className="col-span-2">
 				{/* Dashboard */}
 				<div className="bg-[#FFFFFF] w-[1155px]  flex">
-					<div className="text-3xl p-6 font-bold right">Dashboard</div>
+					<div className="text-[32px] font-Poppins p-6 font-bold right">Dashboard</div>
 					<div className="left p-6 pl-[630px] size-max">
 					<Bell/>
 					</div>
 					<div className="right p-6 pl-[5px] ">
 					<Pic/>
 					</div>
-					<div className="p-5 pl-[3px] ">
-						<Link to="/usmanshahid">Usman Shahid</Link>
-						<p>Status 200</p>
+					<div className="p-5 pl-[3px] text-[#0F172A] ">
+						<Link to="/usmanshahid" className="font-bold text-[14px] font-Poppins">{snapshot.data?.user?.name  || "Usman Shahid" }</Link>
+						<p className="text-[#64748B]">Status 200</p>
 					</div>
 					<div className="p-6 pl-[2px] ">
 					<Arrow/>
@@ -123,7 +123,7 @@ function Dashboard() {
 
 
 				{/*============================================= This is bottom part =======================================*/}
-				<section className="bg-white row-span-2 col-span-2 m-20 ">
+				<section className="bg-white row-span-2 col-span-2  m-14 h- ">
 					<h1 className="text-2xl font-bold  p-6">Analytics</h1>
 					{/* ==========================This is bottom grid section for progress bar================================= */}
 

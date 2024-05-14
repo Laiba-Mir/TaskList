@@ -1,68 +1,82 @@
 import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Deleteicon2 from "../svg-components/Deleteicon2";
 
-function DeleteConfirmationPopup({ onSubmit, taskId, taskTitle, onDelete }) {
-	const [cross, setCross] = useState(true);
-    const [ShowPopup, setShowPopup] =useState(true);
+function DeleteConfirmationPopup({
 	
+	id: taskId,
+	taskTitle,
+	fetchTask,
+	
+}) {
+	const [cross, setCross] = useState(true);
+	// const [ShowPopup, setShowPopup] = useState(false);
+
 	const [loading, setLoading] = useState(false); // Add loading state
 
+	console.log("taskId: ", taskId);
+	console.log("Here is the task now delete")
+
+	// const fetchRemainingTasks = async () => {
+    //     try {
+    //         const response = await axios.get("http://localhost:3000/api/tasks");
+    //         const remainingTasks = response.data;
+    //         return remainingTasks;
+	// 		console.log(remainingTasks);
+    //     } catch (error) {
+    //         console.error("Error fetching remaining tasks:", error);
+    //         return []; // Return an empty array in case of error
+    //     }
+    // };
 
 
-
-    const handleFormSubmit = () => {
-        // e.preventDefault();
-        // setLoading(true); // Set loading to true on form submission
-        axios.get('http://localhost:3000/api/tasks/')
-          .then(response => {
-            // const newData = { taskId  };
-            const Task_Id = response.data.data.map(_id => _id);
-            onSubmit(Task_Id);
-            setLoading(false); // Set loading to false after successful submission
-            console.log("Response " , response)
-          })
-          .catch(err => {
-            setLoading(false); // Set loading to false if submission is unsuccessful
-            console.log(err);
-          });
-      };
-     
-	
 
 	function crossDisplay() {
 		setCross(!cross);
 	}
 
-
 	const handleCancel = () => {
-		setShowPopup(!ShowPopup); // Hide the popup when cancel is clicked
+		setCross(false); // Hide the popup when cancel is clicked
 	};
 
-	const handleDelete = (task_Id) => {
-        handleFormSubmit(task_Id);
-		axios.delete(`http://localhost:3000/api/tasks/${taskId}`)
-			.then((response) => {
-				onDelete(); // Notify parent component that the task has been deleted
-				setShowPopup(false); // Hide the popup after successful deletion
-				console.log("Task deleted successfully:", response);
-			})
-			.catch((error) => {
-				console.error("Error deleting task:", error);
-			});
-	};
+	// const handleDelete = (task_Id) => {
+	// 	axios
+	// 		.delete(`http://localhost:3000/api/tasks/${taskId}`)
+	// 		.then((response) => {
+	// 			setCross(false); // Hide the popup after successful deletion
+	// 			console.log("Task deleted successfully:", response);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error("Error deleting task:", error);
+	// 		});
+	// };
+
+	const handleDelete = async (task_Id) => {
+        setLoading(true); // Set loading state to true
+        try {
+            await axios.delete(`http://localhost:3000/api/tasks/${taskId}`);
+            setCross(false); // Hide the popup after successful deletion
+            console.log("Task deleted successfully");
+            // Fetch remaining tasks after deletion
+            const remainingTasks = await fetchTask();
+
+            console.log("Remaining tasks:", remainingTasks);
+        } catch (error) {
+            console.error("Error deleting task:", error);
+        } finally {
+            setLoading(false); // Set loading state back to false
+        }
+    };
 
 	return (
 		<>
 			{cross && (
 				<div className="fixed inset-0 flex items-center justify-center bg-[#000000] bg-opacity-70">
 					<div className="bg-white p-8 w-[632px] h-[436px] rounded-lg">
-						{/* <div className="flex"> */}
+						
 
-						<button onClick={crossDisplay} className=" flex ml-[550px]  ">
+						<button onClick={() => setCross(false)} className=" flex ml-[550px]  ">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								className="h-6 w-6 text-gray-500"
@@ -92,7 +106,7 @@ function DeleteConfirmationPopup({ onSubmit, taskId, taskTitle, onDelete }) {
 								className="bg-[#4BCBEB]  h-[56px] text-white text-[20px] font-Poppins ml-8 mt-3 rounded-md relative"
 								style={{ width: "167px", height: "56px" }} // Set fixed dimensions for the button
 								disabled={loading} // Disable button when loading is true
-                                type="submit"
+								type="Button"
 								onClick={handleDelete}>
 								Delete
 							</button>
@@ -101,7 +115,7 @@ function DeleteConfirmationPopup({ onSubmit, taskId, taskTitle, onDelete }) {
 								className="bg-[#D9D9D9] text-[#2C2C2E] text-[20px] font-Poppins  ml-8 mt-3 rounded-md relative"
 								style={{ width: "167px", height: "56px" }} // Set fixed dimensions for the button
 								onClick={handleCancel}
-                                type="submit"
+								type="Button"
 								disabled={loading} // Disable button when loading is true
 							>
 								Cancel
@@ -119,49 +133,3 @@ DeleteConfirmationPopup.propTypes = {
 };
 
 export default DeleteConfirmationPopup;
-
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// const DeleteConfirmationPopup = ({ taskId, taskTitle, onDelete }) => {
-//   const [showPopup, setShowPopup] = useState(false);
-
-//   const handleDelete = () => {
-//     axios
-//       .delete(`http://localhost:3000/api/tasks/${taskId}`)
-//       .then((response) => {
-//         onDelete(); // Notify parent component that the task has been deleted
-//         setShowPopup(false); // Hide the popup after successful deletion
-//         console.log("Task deleted successfully:", response);
-//       })
-//       .catch((error) => {
-//         console.error("Error deleting task:", error);
-//       });
-//   };
-
-//   const handleCancel = () => {
-//     setShowPopup(false); // Hide the popup when cancel is clicked
-//   };
-
-//   return (
-//     <div>
-//       {/* Button to show the popup
-//       <button onClick={() => setShowPopup(true)}>Delete Task</button> */}
-
-//       {/* Popup */}
-//       {showPopup && (
-//         <div className="popup-container">
-//           <div className="popup">
-//             <h2>Are you sure you want to delete "{taskTitle}"?</h2>
-//             <div className="button-container">
-//               <button onClick={handleDelete}>Delete</button>
-//               <button onClick={handleCancel}>Cancel</button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default DeleteConfirmationPopup;
